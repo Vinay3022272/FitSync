@@ -10,6 +10,10 @@ router.post("/logout",logout)
 
 router.post("/onboarding", protectRoute , onboard)
 
+// otp-verification mail
+// forget-password
+// send-resest-password-email
+
 // check if user is logged in or not
 router.get("/me", protectRoute, (req, res) => {
     res.status(200).json({success: true, user: req.user})
