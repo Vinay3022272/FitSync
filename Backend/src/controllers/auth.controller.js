@@ -26,8 +26,8 @@ export async function signup(req, res) {
       return res.status(401).json({ message: "Email already exists" });
     }
 
-    const idx = Math.floor(Math.random() * 100) + 1; //gen a num between 1-100
-    const randomAvatar = `https://avatar.iran.liara.run/public/${idx}.png`;
+    const idx = Math.floor(Math.random() * 10000) + 1; //gen a num between 1-10000
+    const randomAvatar = `https://api.dicebear.com/7.x/avataaars/svg?seed=${idx}`;
 
     const newUser = new User({
       email,
@@ -45,7 +45,6 @@ export async function signup(req, res) {
       });
       console.log(`Stream user created for ${newUser.fullName}`);
 
-      console.log(`Personal channel created for ${newUser.fullName}`);
     } catch (error) {
       console.error("Error creating stream user", error);
     }
