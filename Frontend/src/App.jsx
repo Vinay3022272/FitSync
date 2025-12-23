@@ -16,8 +16,10 @@ import PageLoader from "./components/PageLoader.jsx";
 import useAuthUser from "./hooks/useAuthUser.js";
 
 const App = () => {
-  const { isLoading, authUser } = useAuthUser;
+  const { isLoading, authUser } = useAuthUser();
   const isAuthenticated = Boolean(authUser);
+  // console.log(authUser);
+  // console.log(isAuthenticated);
   const isOnboarded = authUser?.isOnboarded;
 
   if (isLoading)
@@ -38,11 +40,11 @@ const App = () => {
         />
         <Route
           path="/signup"
-          element={!isAuthenticated ? <SignupPage /> : <Navigate to="/" />}
+          element={!isAuthenticated ? <SignupPage /> : <Navigate to={isOnboarded ? "/":"/onboarding"} />}
         />
         <Route
           path="/login"
-          element={!isAuthenticated ? <LoginPage /> : <Navigate to="/" />}
+          element={!isAuthenticated ? <LoginPage /> : <Navigate to={isOnboarded ? "/" : "/onboarding"} />}
         />
         <Route
           path="/call"

@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import useAuthUser from "../hooks/useAuthUser.js";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { completeOnboarding } from "../lib/api.js";
 import toast, { LoaderIcon } from "react-hot-toast";
 import { ShuffleIcon, CameraIcon, MapPin, ShipWheelIcon } from "lucide-react";
 import PageLoader from "../components/PageLoader.jsx";
 import { LANGUAGES } from "../constants/index.js";
+import useOnboarding from "../hooks/useOnboarding.js";
 
 const OnboardingPage = () => {
-  const queryClient = useQueryClient();
-  
+
   const { authUser, isLoading } = useAuthUser();
 
   const [onboardingData, setOnboardingData] = useState({
@@ -34,16 +32,7 @@ const OnboardingPage = () => {
     }
   }, [authUser]);
 
-  const { mutate: onboardingMutation, isPending } = useMutation({
-    mutationFn: completeOnboarding,
-    onSuccess: () => {
-      toast.success("Profile onboarded successfully");
-      queryClient.invalidateQueries({ queryKey: ["authUser"] });
-    },
-    onError: (error) => {
-      toast.error(error.response.data.message);
-    }
-  });
+  const { onboardingMutation, isPending} = useOnboarding()
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,14 +40,15 @@ const OnboardingPage = () => {
   };
 
   const handleRandomAvatar = () => {
-    const idx = Math.floor(Math.random()*10000) + 1;
+    const idx = Math.floor(Math.random() * 10000) + 1;
     const randomAvatar = `https://api.dicebear.com/7.x/avataaars/svg?seed=${idx}`;
 
-    setOnboardingData({...onboardingData, profilePic: randomAvatar})
-    toast.success("Random profile picture generated!")
+    setOnboardingData({ ...onboardingData, profilePic: randomAvatar });
+    toast.success("Random profile picture generated!");
   };
 
-  if (isLoading) return <div className="text-center mt-10">{<PageLoader/>}</div>;
+  if (isLoading)
+    return <div className="text-center mt-10">{<PageLoader />}</div>;
 
   return (
     <div className="min-h-screen bg-base-100 flex items-center justify-center p-4">
@@ -69,7 +59,6 @@ const OnboardingPage = () => {
           </h1>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            
             {/* PROFILE PIC CONTAINER */}
             <div className="flex flex-col items-center justify-center space-y-4">
               <div className="size-32 rounded-full bg-base-300 overflow-hidden">
@@ -107,7 +96,12 @@ const OnboardingPage = () => {
                 type="text"
                 name="fullName"
                 value={onboardingData.fullName}
-                onChange={(e) => setOnboardingData({ ...onboardingData, fullName: e.target.value })}
+                onChange={(e) =>
+                  setOnboardingData({
+                    ...onboardingData,
+                    fullName: e.target.value,
+                  })
+                }
                 className="input input-bordered w-full"
                 placeholder="Your full name"
               />
@@ -121,7 +115,9 @@ const OnboardingPage = () => {
               <textarea
                 name="bio"
                 value={onboardingData.bio}
-                onChange={(e) => setOnboardingData({ ...onboardingData, bio: e.target.value })}
+                onChange={(e) =>
+                  setOnboardingData({ ...onboardingData, bio: e.target.value })
+                }
                 className="textarea textarea-bordered h-24 resize-none w-full"
                 placeholder="Tell others about yourself and your language learning goals"
                 maxLength={500}
@@ -131,7 +127,7 @@ const OnboardingPage = () => {
                   {onboardingData.bio.length}/500 characters
                 </span>
               </div>
-            </div>  
+            </div>
 
             {/* LANGUAGES */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -143,7 +139,12 @@ const OnboardingPage = () => {
                 <select
                   name="nativeLanguage"
                   value={onboardingData.nativeLanguage}
-                  onChange={(e) => setOnboardingData({ ...onboardingData, nativeLanguage: e.target.value })}
+                  onChange={(e) =>
+                    setOnboardingData({
+                      ...onboardingData,
+                      nativeLanguage: e.target.value,
+                    })
+                  }
                   className="select select-bordered w-complete"
                 >
                   <option value="">Select your native language</option>
@@ -163,7 +164,12 @@ const OnboardingPage = () => {
                 <select
                   name="learningLanguage"
                   value={onboardingData.learningLanguage}
-                  onChange={(e) => setOnboardingData({ ...onboardingData, learningLanguage: e.target.value })}
+                  onChange={(e) =>
+                    setOnboardingData({
+                      ...onboardingData,
+                      learningLanguage: e.target.value,
+                    })
+                  }
                   className="select select-bordered w-full"
                 >
                   <option value="">Select language you're learning</option>
@@ -187,7 +193,12 @@ const OnboardingPage = () => {
                   type="text"
                   name="location"
                   value={onboardingData.location}
-                  onChange={(e) => setOnboardingData({ ...onboardingData, location: e.target.value })}
+                  onChange={(e) =>
+                    setOnboardingData({
+                      ...onboardingData,
+                      location: e.target.value,
+                    })
+                  }
                   className="input input-bordered w-full pl-10"
                   placeholder="City, Country"
                 />
@@ -196,7 +207,11 @@ const OnboardingPage = () => {
 
             {/* SUBMIT BUTTON */}
 
-            <button className="btn btn-primary w-full" disabled={isPending} type="submit">
+            <button
+              className="btn btn-primary w-full"
+              disabled={isPending}
+              type="submit"
+            >
               {!isPending ? (
                 <>
                   <ShipWheelIcon className="size-5 mr-2" />
