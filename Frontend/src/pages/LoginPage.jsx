@@ -11,7 +11,7 @@ const LoginPage = () => {
     password: "",
   });
 
-  const {isPending, error, loginMutation} = useLogin()
+  const { isPending, error, loginMutation } = useLogin();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -21,7 +21,7 @@ const LoginPage = () => {
   return (
     <div
       className="h-screen flex items-center justify-center p-4 sm:p-6 md:p-8"
-      data-theme="forest"
+    
     >
       <div className="border border-primary/25 flex flex-col lg:flex-row w-full max-w-5xl mx-auto bg-base-100 rounded-xl shadow-lg overflow-hidden">
         {/* Login form section */}
@@ -124,13 +124,20 @@ const LoginPage = () => {
           <div className="max-w-md p-8">
             {/* Illustration */}
             <div className="relative aspect-square max-w-sm mx-auto h-70">
-              <img src="/i.png" alt="Language connection illustration" className="w-full h-full object-contain" />
+              <img
+                src="/i.png"
+                alt="Language connection illustration"
+                className="w-full h-full object-contain"
+              />
             </div>
 
             <div className="text-center space-y-3 mt-6">
-              <h2 className="text-xl font-semibold">Find fitness and language partners worldwide and grow together</h2>
+              <h2 className="text-xl font-semibold">
+                Find fitness and language partners worldwide and grow together
+              </h2>
               <p className="opacity-70">
-                Practice conversations, stay healthy, make friends, and grow your language and fitness skills--all in one place.
+                Practice conversations, stay healthy, make friends, and grow
+                your language and fitness skills--all in one place.
               </p>
             </div>
           </div>

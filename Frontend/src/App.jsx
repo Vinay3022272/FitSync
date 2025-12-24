@@ -14,25 +14,28 @@ import { Navigate } from "react-router";
 import PageLoader from "./components/PageLoader.jsx";
 
 import useAuthUser from "./hooks/useAuthUser.js";
+import Layout from "./components/Layout.jsx";
+import { useThemeStore } from "./store/useThemeStore.js";
 
 const App = () => {
   const { isLoading, authUser } = useAuthUser();
   const isAuthenticated = Boolean(authUser);
-  // console.log(authUser);
-  // console.log(isAuthenticated);
   const isOnboarded = authUser?.isOnboarded;
+  const {theme} = useThemeStore()
 
   if (isLoading)
     return <div className="text-center mt-10">{<PageLoader />}</div>;
 
   return (
-    <div className="h-screen" data-theme="night">
+    <div className="h-screen" data-theme={theme}>
       <Routes>
         <Route
           path="/"
           element={
             isAuthenticated && isOnboarded ? (
-              <HomePage />
+              <Layout showSidebar={true}>
+                <HomePage />
+              </Layout>
             ) : (
               <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
             )
