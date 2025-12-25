@@ -125,7 +125,7 @@ export async function getFriendRequests(req, res){
         const incomingReqs = await FriendRequest.find({
             recipient: req.user.id,
             status: "pending"
-        }).populate("Sender","fullName profilePic nativeLanguage learningLanguage")
+        }).populate("sender","fullName profilePic nativeLanguage learningLanguage")
         
         // sended request that got accepted(recipient is someone else)
         const acceptedRequest = await FriendRequest.find({
