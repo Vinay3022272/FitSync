@@ -2,3 +2,69 @@
 @plugin "daisyui" {
   themes: all;
 }
+
+.str-chat__channel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  
+  
+  background: radial-gradient(
+    circle at 50% 0%, 
+    var(--color-base-200) 0%, 
+    var(--color-base-300) 100%
+  );
+}
+
+
+.str-chat__container {
+  max-width: 1200px;
+  width: 95%;
+  height: 85% !important;
+  margin: 0 auto !important;
+  
+ 
+  background-color: var(--color-base-100);
+  
+  border-radius: 1.5rem; /* More modern rounded corners */
+  border: 1px solid var(--color-base-200);
+  
+  box-shadow: 
+    0 20px 25px -5px rgb(0 0 0 / 0.1), 
+    0 0 10px -1px var(--color-primary); /* Subtle theme-colored glow */
+    
+  overflow: hidden;
+}
+
+.str-chat__list {
+  background-color: var(--color-base-100);
+  padding: 1rem;
+}
+
+.str-chat__message-input {
+  background-color: var(--color-base-100); /* Keep it clean */
+  border-top: 1px solid var(--color-base-200);
+  padding: 1.5rem;
+}
+
+
+.str-chat__message-simple__content--own {
+  background-color: var(--color-primary) !important;
+  color: var(--color-primary-content) !important;
+  border-radius: 1.2rem 1.2rem 0 1.2rem !important; /* Modern shape */
+  border: none !important;
+}
+
+
+.str-chat__message-simple__content--received {
+  background-color: var(--color-base-200) !important;
+  color: var(--color-base-content) !important;
+  border-radius: 1.2rem 1.2rem 1.2rem 0 !important;
+  font-weight: 500;
+}
+
+
+.str-chat__list-notifications {
+  display: none;
+}
